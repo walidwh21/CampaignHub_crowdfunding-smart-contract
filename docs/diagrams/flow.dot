@@ -1,0 +1,20 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Helvetica", pad=0.4, nodesep=0.45, ranksep=0.5, dpi=160, label="Where the money goes", labelloc=t, fontsize=20];
+  node  [fontname="Helvetica", fontsize=12, shape=box, style="rounded,filled", fillcolor="#eaf0fb", color="#3b5b92", margin="0.22,0.12"];
+  edge  [fontname="Helvetica", fontsize=10, color="#555555"];
+
+  pledge [label="pledge(id) with ETH"];
+  open   [label="Deadline reached?", shape=diamond, fillcolor="#fff4d6", color="#b8860b", margin="0.05,0.05"];
+  reject [label="Revert:\n\"Campaign has ended\"", fillcolor="#fde0e0", color="#c62828"];
+  escrow [label="ETH held by contract\n(raised += value)", fillcolor="#dbe7ff"];
+  goal   [label="After deadline:\nraised ≥ goal?", shape=diamond, fillcolor="#fff4d6", color="#b8860b", margin="0.05,0.05"];
+  claim  [label="claimFunds()\ncreator receives total raised", fillcolor="#c8ebd0", color="#2e7d32"];
+  refund [label="refund()\neach backer receives own pledge", fillcolor="#fde0e0", color="#c62828"];
+
+  pledge -> open;
+  open -> reject [label="yes"];
+  open -> escrow [label="no"];
+  escrow -> goal;
+  goal -> claim  [label="yes"];
+  goal -> refund [label="no"];
+}

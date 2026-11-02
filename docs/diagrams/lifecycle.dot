@@ -1,0 +1,18 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", fontname="Helvetica", pad=0.4, nodesep=0.6, ranksep=0.8, dpi=160, label="Campaign lifecycle (statusOf)", labelloc=t, fontsize=20];
+  node  [fontname="Helvetica", fontsize=13, shape=box, style="rounded,filled", margin="0.25,0.15"];
+  edge  [fontname="Helvetica", fontsize=11, color="#555555"];
+
+  start [shape=circle, label="", width=0.2, style=filled, fillcolor="#333333"];
+  active    [label="Active\npledges open",         fillcolor="#dbe7ff", color="#3b5b92"];
+  succeeded [label="Succeeded\ngoal met",          fillcolor="#e3f6e8", color="#2e7d32"];
+  claimed   [label="Claimed\ncreator paid",        fillcolor="#c8ebd0", color="#2e7d32", peripheries=2];
+  failed    [label="Failed\nrefunds open",         fillcolor="#fde0e0", color="#c62828", peripheries=2];
+
+  start -> active [label="createCampaign()"];
+  active -> active [label="pledge()"];
+  active -> succeeded [label="deadline passes\nraised ≥ goal"];
+  active -> failed    [label="deadline passes\nraised < goal"];
+  succeeded -> claimed [label="claimFunds()\n(creator only)"];
+  failed -> failed [label="refund()\n(each backer once)"];
+}

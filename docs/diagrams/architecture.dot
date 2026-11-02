@@ -1,0 +1,23 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", fontname="Helvetica", pad=0.4, nodesep=0.5, ranksep=0.9, dpi=160, label="System overview", labelloc=t, fontsize=20];
+  node  [fontname="Helvetica", fontsize=12, shape=box, style="rounded,filled", color="#3b5b92", fillcolor="#eaf0fb", margin="0.2,0.12"];
+  edge  [fontname="Helvetica", fontsize=10, color="#555555"];
+
+  creator [label="Creator", shape=ellipse, fillcolor="#fff4d6", color="#b8860b"];
+  backer  [label="Backer",  shape=ellipse, fillcolor="#e3f6e8", color="#2e7d32"];
+
+  subgraph cluster_chain {
+    label="Ethereum-compatible network"; fontsize=13; style="rounded,dashed"; color="#888888";
+    hub [label=<<b>CampaignHub</b><br/><font point-size="10">createCampaign · pledge<br/>claimFunds · refund</font>>, fillcolor="#dbe7ff"];
+    state [shape=cylinder, fillcolor="#f3f3f3", color="#777777", label=<<b>Contract state</b><br/><font point-size="10">campaigns[id]<br/>pledges[id][backer]</font>>];
+    events [shape=note, fillcolor="#f3f3f3", color="#777777", label=<<b>Events</b><br/><font point-size="10">CampaignCreated · Pledged<br/>FundsClaimed · Refunded</font>>];
+  }
+
+  tools [label=<<b>Hardhat</b><br/><font point-size="10">compile · test · deploy · demo</font>>, fillcolor="#ffe9e0", color="#c0562d"];
+
+  creator -> hub [label="createCampaign()\nclaimFunds()"];
+  backer  -> hub [label="pledge() + ETH\nrefund()"];
+  hub -> state [dir=both];
+  hub -> events [style=dashed, label="emit"];
+  tools -> hub [style=dotted, label="deploy / test"];
+}

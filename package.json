@@ -1,0 +1,21 @@
+{
+  "name": "campaign-hub",
+  "version": "1.0.0",
+  "description": "All-or-nothing crowdfunding smart contract built with Hardhat",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:gas": "REPORT_GAS=true hardhat test",
+    "coverage": "hardhat coverage",
+    "node": "hardhat node",
+    "demo": "hardhat run scripts/demo.js",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:remote": "hardhat run scripts/deploy.js --network remote"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.12.6"
+  }
+}
